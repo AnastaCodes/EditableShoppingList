@@ -17,3 +17,17 @@ EditableShoppingList is an advanced to-do list application that allows users to 
 ## Demo
 
 You can use the application [here](https://anastacodes.github.io/EditableShoppingList/).
+
+## Technologies Used
+
+- HTML
+- CSS
+- JavaScript
+
+## Acknowledgments
+
+- Inspired by the need for advanced task management tools.
+
+## Contact
+
+If you have any questions or suggestions, please feel free to reach out.
