@@ -140,7 +140,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   btnDeleteAll.addEventListener("click", function () {
     ul.innerHTML = "";
-    localStorage.clear();
+    localArr = [];
+    localStorage.removeItem("shoppingList");
     checkUl();
   });
 
