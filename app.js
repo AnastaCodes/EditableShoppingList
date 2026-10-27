@@ -80,8 +80,6 @@ document.addEventListener("DOMContentLoaded", () => {
     tempInput.id = "edit";
     tempInput.value = altLabel.textContent; // set as a property, so quotes can't break out
     altLabel.replaceChildren(tempInput);
-    editItem.removeEventListener("click", editTask);
-    editItem.addEventListener("click", saveCurrentTask);
   }
 
   function saveCurrentTask() {
