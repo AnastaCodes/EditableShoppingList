@@ -33,9 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
     task.innerHTML = `
       <div class="input-container">
           <input class="checkbox ${isDone ? "check" : ""}" id="${id}" type="checkbox" ${isDone ? "checked" : ""}> 
-          <label class="checkboxLabel" for="${id}">
-              ${text}
-          </label> 
+          <label class="checkboxLabel" for="${id}"></label>
       </div>
       <button class="editItem" aria-label="Edit item">
         <i class="fa-solid fa-pencil"></i>
@@ -43,6 +41,8 @@ document.addEventListener("DOMContentLoaded", () => {
       <button class="deleteItem" aria-label="Delete item">
         <i class="fa-solid fa-xmark"></i>
       </button>`;
+    // textContent, not innerHTML: user text must never be parsed as markup
+    task.querySelector(".checkboxLabel").textContent = text;
 
     ul.append(task);
     deleteTask(task);
@@ -75,9 +75,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     currentlyEditingTask = task;
     const altLabel = task.querySelector("label");
-    const altLabelValue = altLabel.innerText;
-    let tempInput = `<input type="text" id="edit" value="${altLabelValue}" />`;
-    altLabel.innerHTML = tempInput;
+    const tempInput = document.createElement("input");
+    tempInput.type = "text";
+    tempInput.id = "edit";
+    tempInput.value = altLabel.textContent; // set as a property, so quotes can't break out
+    altLabel.replaceChildren(tempInput);
     editItem.removeEventListener("click", editTask);
     editItem.addEventListener("click", saveCurrentTask);
   }
@@ -90,7 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const id = currentlyEditingTask.querySelector(".checkbox").id;
       const currentItem = localArr.find((el) => el.idTask === +id);
       currentItem.textTask = inputValue;
-      altLabel.innerText = inputValue;
+      altLabel.textContent = inputValue;
       localStorage.setItem("shoppingList", JSON.stringify(localArr));
       editItem.firstElementChild.classList.add("fa-pencil");
       editItem.firstElementChild.classList.remove("fa-square-check");
